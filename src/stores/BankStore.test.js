@@ -1,8 +1,22 @@
+import server from '../testServer';
+
 import BankStore from './BankStore';
 
-jest.mock('../services/ApiService');
+// jest.mock('../services/ApiService');
 
 const context = describe;
+
+beforeAll(() => {
+  server.listen();
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+});
 
 describe('BankStore', () => {
   describe('login', () => {

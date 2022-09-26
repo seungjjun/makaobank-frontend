@@ -1,7 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000';
+import config from '../config';
+
+const baseUrl = config.apiBaseUrl;
 
 export default class ApiService {
   async postSession({ accountNumber, password }) {
@@ -10,7 +12,7 @@ export default class ApiService {
     return {
       accessToken: data.accessToken,
       name: data.name,
-      amount: data.amoun,
+      amount: data.amount,
     };
   }
 }

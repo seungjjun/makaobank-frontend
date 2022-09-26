@@ -4,6 +4,7 @@ export default class ApiService {
   async postSession({ accountNumber, password }) {
     if (accountNumber === '1234' && password === 'password') {
       return {
+        accessToken: 'ACCESS.TOKEN',
         name: 'Pikachu',
         amount: 100_000,
       };

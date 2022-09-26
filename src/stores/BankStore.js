@@ -23,3 +23,5 @@ export default class BankStore {
     }
   }
 }
+
+export const bankStore = new BankStore();
