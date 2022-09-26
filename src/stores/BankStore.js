@@ -1,3 +1,5 @@
+import { apiService } from '../services/ApiService';
+
 export default class BankStore {
   constructor() {
     this.accountNumber = '';
@@ -6,12 +8,18 @@ export default class BankStore {
     this.transactions = [];
   }
 
-  login({ accountNumber, password }) {
-    if (accountNumber !== '1234') {
-      return;
+  async login({ accountNumber, password }) {
+    try {
+      const { accessToken, name, amount } = await apiService.postSession({
+        accountNumber, password,
+      });
+
+      this.name = name;
+      this.amount = amount;
+
+      return accessToken;
+    } catch (e) {
+      return '';
     }
-    // TODO 서버에서 가져와야 함
-    this.name = 'Pikachu';
-    this.amount = 100_000;
   }
 }
