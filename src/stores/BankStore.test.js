@@ -19,11 +19,15 @@ afterAll(() => {
 });
 
 describe('BankStore', () => {
+  let bankStore;
+
+  beforeEach(() => {
+    bankStore = new BankStore();
+  });
+
   describe('login', () => {
     context('with correct account number and password', () => {
       it('loads account information', async () => {
-        const bankStore = new BankStore();
-
         await bankStore.login({ accountNumber: '1234', password: 'password' });
 
         expect(bankStore.name).toBe('Pikachu');
@@ -33,13 +37,21 @@ describe('BankStore', () => {
 
     context('with incorrect account number', () => {
       it('loads account information', async () => {
-        const bankStore = new BankStore();
-
         await bankStore.login({ accountNumber: 'xxx', password: 'password' });
 
         expect(bankStore.name).toBeFalsy();
         expect(bankStore.amount).toBe(0);
       });
+    });
+  });
+
+  describe('fetchAccount', () => {
+    it('sets account information', async () => {
+      await bankStore.fetchAccount();
+
+      expect(bankStore.name).toBe('Pikachu');
+      expect(bankStore.accountNumber).toBe('1234');
+      expect(bankStore.amount).toBe(100_000);
     });
   });
 });

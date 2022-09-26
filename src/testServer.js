@@ -18,6 +18,12 @@ const server = setupServer(
     }
     return res(ctx.status(400));
   }),
+
+  rest.get(`${baseUrl}/accounts/me`, async (req, res, ctx) => res(ctx.json({
+    name: 'Pikachu',
+    accountNumber: '1234',
+    amount: 100_000,
+  }))),
 );
 
 export default server;

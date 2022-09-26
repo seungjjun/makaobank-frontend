@@ -1,5 +1,17 @@
+import { useEffect } from 'react';
+
+import Account from '../components/Account';
+
+import useBankStore from '../hooks/useBankStore';
+
 export default function AccountPage() {
+  const bankStore = useBankStore();
+
+  useEffect(() => {
+    bankStore.fetchAccount();
+  }, []);
+
   return (
-    <p>잔액: 123,000원</p>
+    <Account />
   );
 }
