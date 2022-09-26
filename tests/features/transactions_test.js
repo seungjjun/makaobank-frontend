@@ -20,7 +20,7 @@ Scenario('거래 내역이 있는 경우', ({ I }) => {
   I.click('송금');
   I.fillField('받을 분 계좌 번호', '56789012');
   I.fillField('보낼 금액', '3000');
-  I.click('보내기');
+  I.click('보내기'); 
 
   I.waitForText('계좌 이체 성공');
 
