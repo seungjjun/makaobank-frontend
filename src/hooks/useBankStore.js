@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+
 import { bankStore } from '../stores/BankStore';
+
 import useForceUpdate from './useForceUpdate';
 
 export default function useBankStore() {

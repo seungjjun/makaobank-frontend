@@ -16,7 +16,9 @@ const server = setupServer(
         amount: 100_000,
       }));
     }
-    return res(ctx.status(400));
+    return res(
+      ctx.status(400),
+    );
   }),
 
   rest.get(`${baseUrl}/accounts/me`, async (req, res, ctx) => res(ctx.json({
@@ -24,6 +26,22 @@ const server = setupServer(
     accountNumber: '1234',
     amount: 100_000,
   }))),
+
+  rest.post(`${baseUrl}/transactions`, async (req, res, ctx) => {
+    const { amount } = await req.json();
+
+    if (amount <= 0) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          code: 1002,
+          message: '금액이 잘못 되었습니다.',
+        }),
+      );
+    }
+
+    return res(ctx.status(200));
+  }),
 );
 
 export default server;
