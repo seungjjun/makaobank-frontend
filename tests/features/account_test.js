@@ -4,9 +4,9 @@ Feature('잔액 확인 - 고객은 얼마를 쓸 수 있는지 알기 위해 본
 Before(({ I }) => {
   I.setupDatabase();
 
-  I.amOnPage('/');
+  I.login('1234')
 
-  // TODO: 로그인 
+  I.amOnPage('/');
 }); 
 
 Scenario('잔액이 없는 경우', ({ I }) => {

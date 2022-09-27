@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 
@@ -24,6 +24,7 @@ export default function TransferForm() {
     const { accountNumber, amount, name } = data;
     bankStore.requestTransfer({ to: accountNumber, amount, name });
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>

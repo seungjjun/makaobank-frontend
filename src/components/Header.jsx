@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import { useLocalStorage } from 'usehooks-ts';
+
 import styled from 'styled-components';
+
+import Button from './ui/Button';
 
 const Container = styled.header`
   width: 100%;
@@ -19,6 +23,12 @@ const Container = styled.header`
 `;
 
 export default function Header() {
+  const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
+
+  const handleLogout = () => {
+    setAccessToken('');
+  };
+
   return (
     <Container>
       <nav>
@@ -26,15 +36,26 @@ export default function Header() {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/account">잔액 확인</Link>
-          </li>
-          <li>
-            <Link to="/transfer">송금</Link>
-          </li>
-          <li>
-            <Link to="/transactions">거래 내역 확인</Link>
-          </li>
+          {accessToken ? (
+            <>
+              <li>
+                <Link to="/account">잔액 확인</Link>
+              </li>
+              <li>
+                <Link to="/transfer">송금</Link>
+              </li>
+              <li>
+                <Link to="/transactions">거래 내역 확인</Link>
+              </li>
+              <li>
+                <Button type="button" onClick={handleLogout}>로그아웃</Button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link to="/login">로그인</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </Container>

@@ -11,6 +11,16 @@ module.exports = () => actor({
     this.amOnPage(`${backdoorBaseUrl}/change-amount?userId=${userId}&amount=${amount}`);
   },
 
+  login(accountNumber) {
+    this.amOnPage('/login');
+
+    this.fillField('계좌 번호', accountNumber);
+    this.fillField('패스워드', 'password');
+    this.click('[type=submit]');
+
+    this.waitForText('로그아웃');
+  },
+
   transfer({ to, amount, name }) {
     this.amOnPage('/transfer');
 

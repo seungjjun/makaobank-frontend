@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { Routes, Route } from 'react-router-dom';
 
 import { Reset } from 'styled-reset';
@@ -7,14 +5,15 @@ import { Reset } from 'styled-reset';
 import styled, { ThemeProvider } from 'styled-components';
 
 import { useLocalStorage } from 'usehooks-ts';
-import Header from './components/Header';
-
 import PrimaryButton from './components/ui/PrimaryButton';
+
+import Header from './components/Header';
 
 import AccountPage from './pages/AccountPage';
 import HomePage from './pages/HomePage';
 import TransferPage from './pages/TransferPage';
 import TransactionsPage from './pages/TransactionsPage';
+import LoginPage from './pages/LoginPage';
 
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -47,6 +46,7 @@ export default function App() {
       <Main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/transfer" element={<TransferPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />

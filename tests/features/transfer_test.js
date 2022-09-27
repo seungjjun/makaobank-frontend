@@ -12,10 +12,10 @@ Before(({I}) => {
   I.setupDatabase();
   I.changeAmount({ userId: 1, amount });
 
+  I.login('1234')
+  
   I.amOnPage('/');
-
-  // TODO: 로그인
-
+  
   I.click('송금');
 });
 
