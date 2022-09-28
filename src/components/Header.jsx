@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from 'usehooks-ts';
 
@@ -23,10 +23,13 @@ const Container = styled.header`
 `;
 
 export default function Header() {
+  const navigate = useNavigate();
+
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
 
   const handleLogout = () => {
     setAccessToken('');
+    navigate('/');
   };
 
   return (

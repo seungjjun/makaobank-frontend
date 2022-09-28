@@ -6,6 +6,14 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class ApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   async postSession({ accountNumber, password }) {
     const url = `${baseUrl}/session`;
     const { data } = await axios.post(url, { accountNumber, password });
@@ -19,7 +27,11 @@ export default class ApiService {
   async fetchAccount() {
     const url = `${baseUrl}/accounts/me`;
     // TODO: access token을 header로 넘겨줄 것
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return {
       name: data.name,
@@ -30,15 +42,23 @@ export default class ApiService {
 
   async fetchTransactions() {
     const url = `${baseUrl}/transactions`;
-    // TODO: access token을 header로 넘겨줄 것
-    const { data } = await axios.get(url);
+
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
     const { transactions } = data;
     return transactions;
   }
 
   async createTransaction({ to, amount, name }) {
     const url = `${baseUrl}/transactions`;
-    await axios.post(url, { to, amount, name });
+    await axios.post(url, { to, amount, name }, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
   }
 }
 

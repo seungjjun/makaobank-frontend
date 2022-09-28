@@ -5,6 +5,11 @@ import { Reset } from 'styled-reset';
 import styled, { ThemeProvider } from 'styled-components';
 
 import { useLocalStorage } from 'usehooks-ts';
+
+import { useEffect } from 'react';
+
+import { apiService } from './services/ApiService';
+
 import PrimaryButton from './components/ui/PrimaryButton';
 
 import Header from './components/Header';
@@ -26,6 +31,11 @@ const Main = styled.main`
 
 export default function App() {
   const [themeName, setThemeName] = useLocalStorage('theme', 'default ');
+  const [accessToken] = useLocalStorage('accessToken', '');
+
+  useEffect(() => {
+    apiService.setAccessToken(accessToken);
+  }, [accessToken]);
 
   const theme = themeName === 'dark' ? darkTheme : defaultTheme;
 
