@@ -72,8 +72,6 @@ export default class BankStore {
       await apiService.createTransaction({ to, amount, name });
       this.changeTransferState('success');
     } catch (e) {
-      console.log(e);
-
       const { message } = e.response.data;
       if (message === '잘못된 계좌번호입니다. 다시 입력해주세요') {
         this.changeTransferState('nonexistent', { errorMessage: message });
