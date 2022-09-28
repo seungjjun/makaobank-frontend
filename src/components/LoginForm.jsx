@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from 'react-hook-form';
 
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,6 @@ export default function LoginForm() {
       setAccessToken(accessToken);
       navagate('/');
     }
-    console.log(accessToken);
   };
 
   return (

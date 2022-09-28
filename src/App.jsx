@@ -19,6 +19,7 @@ import HomePage from './pages/HomePage';
 import TransferPage from './pages/TransferPage';
 import TransactionsPage from './pages/TransactionsPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -56,6 +57,7 @@ export default function App() {
       <Main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/transfer" element={<TransferPage />} />

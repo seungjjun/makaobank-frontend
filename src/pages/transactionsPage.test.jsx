@@ -6,6 +6,6 @@ test('TransactionsPage', async () => {
   render(<TransactionsPage />);
 
   await waitFor(() => {
-    screen.getByText(/3,000원/);
+    screen.getByText('거래 내역이 없습니다');
   });
 });
