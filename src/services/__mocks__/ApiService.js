@@ -6,7 +6,7 @@ export default class ApiService {
       return {
         accessToken: 'ACCESS.TOKEN',
         name: 'Pikachu',
-        amount: 100_000,
+        amount: 3_000,
       };
     }
     throw new Error('Login failed');

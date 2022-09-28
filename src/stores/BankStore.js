@@ -11,6 +11,8 @@ export default class BankStore {
 
     this.transferState = '';
 
+    this.loginState = '';
+
     this.errorMessage = '';
   }
 
@@ -37,6 +39,8 @@ export default class BankStore {
 
       return accessToken;
     } catch (e) {
+      const { message } = e.response.data;
+      this.changeLoginState('fail', { errorMessage: message });
       return '';
     }
   }
@@ -73,6 +77,12 @@ export default class BankStore {
     }
   }
 
+  changeLoginState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.loginState = state;
+    this.publish();
+  }
+
   changeTransferState(state, { errorMessage = '' } = {}) {
     this.errorMessage = errorMessage;
     this.transferState = state;
@@ -97,6 +107,10 @@ export default class BankStore {
 
   get isTransferFail() {
     return this.transferState === 'fail';
+  }
+
+  get isLoginFail() {
+    return this.loginState === 'fail';
   }
 }
 

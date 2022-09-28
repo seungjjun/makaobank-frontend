@@ -38,5 +38,58 @@ Scenario('2번 사용자 로그인', ({ I }) => {
   
     I.see('계좌번호: 5678');
     I.see('잔액: 2,000원');
-  });
+});
+
+Scenario('아이디를 입력하지 않았을 경우', ({ I }) => {
+  // When
+  I.amOnPage('/');
+
+  I.click('로그인');
+
+  I.fillField('패스워드', 'password');
+  I.click('[type=submit]');
+
+  // Then
+  I.see('아이디를 입력해주세요');
+});
+
+Scenario('비밀번호를 입력하지 않았을 경우', ({ I }) => {
+  // When
+  I.amOnPage('/');
+
+  I.click('로그인');
+
+  I.fillField('계좌 번호', '1234');
+  I.click('[type=submit]');
+
+  // Then
+  I.see('비밀번호를 입력해주세요');
+});
   
+Scenario('존재하지 않는 아이디를 입력했을 경우', ({ I }) => {
+  // When
+  I.amOnPage('/');
+
+  I.click('로그인');
+
+  I.fillField('계좌 번호', '999999999');
+  I.fillField('패스워드', 'password');
+  I.click('[type=submit]');
+
+  // Then
+  I.see('아이디 혹은 비밀번호가 맞지 않습니다');
+});
+
+Scenario('비밀번호가 틀렸을 경우', ({ I }) => {
+  // When
+  I.amOnPage('/');
+
+  I.click('로그인');
+
+  I.fillField('계좌 번호', '1234');
+  I.fillField('패스워드', 'xxx');
+  I.click('[type=submit]');
+
+  // Then
+  I.see('아이디 혹은 비밀번호가 맞지 않습니다');
+});

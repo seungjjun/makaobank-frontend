@@ -5,9 +5,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from 'usehooks-ts';
 
+import styled from 'styled-components';
+
 import useBankStore from '../hooks/useBankStore';
 
 import PrimaryButton from './ui/PrimaryButton';
+
+const Error = styled.div`
+  color: #f23434d3;
+`;
 
 export default function LoginForm() {
   const navagate = useNavigate();
@@ -16,7 +22,7 @@ export default function LoginForm() {
 
   const bankStore = useBankStore();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     const { accountNumber, password } = data;
@@ -39,6 +45,9 @@ export default function LoginForm() {
           id="input-account-number"
           {...register('accountNumber', { required: true })}
         />
+        {errors.accountNumber ? (
+          <Error>아이디를 입력해주세요</Error>
+        ) : null}
       </div>
       <div>
         <label htmlFor="input-password">
@@ -49,7 +58,13 @@ export default function LoginForm() {
           type="password"
           {...register('password', { required: true })}
         />
+        {errors.password ? (
+          <Error>비밀번호를 입력해주세요</Error>
+        ) : null}
       </div>
+      {bankStore.isLoginFail ? (
+        <Error>{bankStore.errorMessage}</Error>
+      ) : null}
       <PrimaryButton type="submit" onClick={() => {}}>
         로그인
       </PrimaryButton>
