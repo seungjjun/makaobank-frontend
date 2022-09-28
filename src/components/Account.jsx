@@ -20,7 +20,7 @@ const Title = styled.h2`
 `;
 
 const AccountBox = styled.div`
-  padding-top: 2.2em;
+  padding-top: 4em;
   border-top: 2px solid #ABD9FF;
 `;
 
