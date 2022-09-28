@@ -41,6 +41,16 @@ export default class BankStore {
     }
   }
 
+  async register({
+    name, accountNumber, password, confirmPassword,
+  }) {
+    await apiService.createAccount({
+      name, accountNumber, password, confirmPassword,
+    });
+
+    this.publish();
+  }
+
   async fetchAccount() {
     const { name, accountNumber, amount } = await apiService.fetchAccount();
 

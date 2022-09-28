@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import styled from 'styled-components';
+import { bankStore } from '../stores/BankStore';
 
 const Error = styled.div`
   color: #f23434d3;
 `;
 
 export default function RegisterForm() {
-  // const navagate = useNavigate();
+  const navagate = useNavigate();
 
   const {
     register, watch, handleSubmit, formState: { errors },
@@ -19,10 +20,11 @@ export default function RegisterForm() {
     const {
       name, accountNumber, password, confirmPassword,
     } = data;
+    bankStore.register({
+      name, accountNumber, password, confirmPassword,
+    });
+    navagate('/');
   };
-
-  // TODO 회원가입이 성공했을 시 홈으로 이동
-  // navagate('/');
 
   return (
     <div>
@@ -103,7 +105,7 @@ export default function RegisterForm() {
             null
           ) }
         </div>
-        <button type="submit" onClick={() => {}}>
+        <button type="submit">
           회원가입
         </button>
       </form>
