@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 import styled from 'styled-components';
 
@@ -11,7 +11,9 @@ const Error = styled.div`
 export default function RegisterForm() {
   // const navagate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register, watch, handleSubmit, formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
     const {
@@ -33,7 +35,12 @@ export default function RegisterForm() {
           <input
             id="input-name"
             type="text"
-            {...register('name', { required: true })}
+            {...register('name', {
+              required: true,
+              minLength: 3,
+              maxLength: 8,
+              pattern: /^[ㄱ-ㅎ|가-힣]+$/,
+            })}
           />
           {errors.name ? (
             <Error>3 ~ 7자까지 한글만 사용 가능</Error>
@@ -48,7 +55,11 @@ export default function RegisterForm() {
           <input
             id="input-account-number"
             type="text"
-            {...register('accountNumber', { required: true })}
+            {...register('accountNumber', {
+              required: true,
+              minLength: 8,
+              maxLength: 8,
+            })}
           />
           {errors.accountNumber ? (
             <Error>로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)</Error>
@@ -62,8 +73,11 @@ export default function RegisterForm() {
           </label>
           <input
             id="input-password"
-            type="number"
-            {...register('password', { required: true })}
+            type="password"
+            {...register('password', {
+              required: true,
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+            })}
           />
           {errors.password ? (
             <Error>8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함</Error>
@@ -77,10 +91,13 @@ export default function RegisterForm() {
           </label>
           <input
             id="input-confirm-password"
-            type="number"
-            {...register('confirmPassword', { required: true })}
+            type="password"
+            {...register('confirmPassword', {
+              required: true,
+              validate: (value) => value === watch('password'),
+            })}
           />
-          {errors.password ? (
+          {errors.confirmPassword ? (
             <Error>비밀번호가 일치하지 않습니다</Error>
           ) : (
             null
