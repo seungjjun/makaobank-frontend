@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useEffect } from 'react';
 
@@ -41,11 +42,19 @@ export default function TransferForm() {
             maxLength: 8,
           })}
         />
-        {errors.accountNumber ? (
+        {bankStore.isExistentId ? (
+          <Error>
+            {bankStore.errorMessage}
+          </Error>
+        ) : bankStore.isMyAccount ? (
+          <Error>
+            {bankStore.errorMessage}
+          </Error>
+        ) : errors.accountNumber ? (
           <Error>계좌번호를 입력해주세요</Error>
         ) : (
           <p>하이픈(-) 제외 숫자 8글자를 입력하세요</p>
-        ) }
+        )}
       </div>
       <div>
         <label htmlFor="input-amount">
@@ -56,18 +65,16 @@ export default function TransferForm() {
           type="number"
           {...register('amount', { required: true })}
         />
-        {bankStore.isTransferFail ? (
+        {errors.amount ? (
+          <Error>금액을 입력해주세요</Error>
+        ) : bankStore.isTransferFail ? (
           <Error>
             {bankStore.errorMessage}
           </Error>
-        ) : (
-          null
-        )}
-        {errors.amount ? (
-          <Error>금액을 입력해주세요</Error>
-        ) : null}
-        {errors.amount ? (
-          null
+        ) : bankStore.isEnoughAmount ? (
+          <Error>
+            {bankStore.errorMessage}
+          </Error>
         ) : (
           <p>
             내 계좌 잔액:

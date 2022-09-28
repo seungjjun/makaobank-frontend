@@ -28,6 +28,10 @@ import darkTheme from './styles/darkTheme';
 
 const Main = styled.main`
   padding: 1em;
+  max-width: 1440px;
+  min-width: 1024px;
+  min-height: 100vh;
+  margin: 0px auto;
 `;
 
 export default function App() {

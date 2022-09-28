@@ -73,7 +73,17 @@ export default class BankStore {
       this.changeTransferState('success');
     } catch (e) {
       const { message } = e.response.data;
-      this.changeTransferState('fail', { errorMessage: message });
+      if (message === '잘못된 계좌번호입니다. 다시 입력해주세요') {
+        this.changeTransferState('nonexistent', { errorMessage: message });
+      }
+
+      if (message === '계좌 잔액이 부족합니다') {
+        this.changeTransferState('insufficient', { errorMessage: message });
+      }
+
+      if (message === '본인의 계좌입니다. 다시 입력해주세요') {
+        this.changeTransferState('myAccount', { errorMessage: message });
+      }
     }
   }
 
@@ -107,6 +117,18 @@ export default class BankStore {
 
   get isTransferFail() {
     return this.transferState === 'fail';
+  }
+
+  get isEnoughAmount() {
+    return this.transferState === 'insufficient';
+  }
+
+  get isExistentId() {
+    return this.transferState === 'nonexistent';
+  }
+
+  get isMyAccount() {
+    return this.transferState === 'myAccount';
   }
 
   get isLoginFail() {

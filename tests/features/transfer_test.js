@@ -55,3 +55,25 @@ Scenario('계좌 번호가 잘못된 경우', ({ I }) => {
   // Then
   I.see('계좌 번호가 잘못 되었습니다.');
 })
+
+Scenario('존재하지 않는 계좌번호를 입력했을 경우', ({ I }) => {
+  // When
+  I.fillField('받을 분 계좌 번호', '99999999');
+  I.fillField('보낼 금액', '100');
+  I.fillField('받는 분 통장 표시', 'Pikachu');
+  I.click('보내기');
+
+  // Then
+  I.see('잘못된 계좌번호입니다. 다시 입력해주세요');
+})
+
+Scenario('본인 계좌로 송금할 경우', ({ I }) => {
+  // When
+  I.fillField('받을 분 계좌 번호', '1234');
+  I.fillField('보낼 금액', '100');
+  I.fillField('받는 분 통장 표시', 'Pikachu');
+  I.click('보내기');
+
+  // Then
+  I.see('본인의 계좌번호입니다. 다시 입력해주세요');
+})
