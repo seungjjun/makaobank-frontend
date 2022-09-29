@@ -13,6 +13,8 @@ export default class BankStore {
 
     this.loginState = '';
 
+    this.registrationState = '';
+
     this.errorMessage = '';
   }
 
@@ -48,11 +50,14 @@ export default class BankStore {
   async register({
     name, accountNumber, password, confirmPassword,
   }) {
-    await apiService.createAccount({
-      name, accountNumber, password, confirmPassword,
-    });
-
-    this.publish();
+    try {
+      await apiService.createAccount({
+        name, accountNumber, password, confirmPassword,
+      });
+    } catch (e) {
+      const { message } = e.response.data;
+      this.changeRegistrationState('existing', { errorMessage: message });
+    }
   }
 
   async fetchAccount() {
@@ -93,6 +98,12 @@ export default class BankStore {
     this.publish();
   }
 
+  changeRegistrationState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.registrationState = state;
+    this.publish();
+  }
+
   changeTransferState(state, { errorMessage = '' } = {}) {
     this.errorMessage = errorMessage;
     this.transferState = state;
@@ -129,6 +140,10 @@ export default class BankStore {
 
   get isMyAccount() {
     return this.transferState === 'myAccount';
+  }
+
+  get isExistingAccountnumber() {
+    return this.registrationState === 'existing';
   }
 
   get isLoginFail() {

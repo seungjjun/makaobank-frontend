@@ -58,7 +58,7 @@ const Activity = styled.th`
   border-right: 1px solid #D8D8D8;
 `;
 const Name = styled.th`
-  padding: 1em 3em;
+  padding: 1.5em 3em;
   border-bottom: 1px solid #D8D8D8;
   border-right: 1px solid #D8D8D8;
 `;

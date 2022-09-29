@@ -12,7 +12,7 @@ test('register', async () => {
   });
 
   fireEvent.change(screen.getByLabelText('계좌번호 입력:'), {
-    target: { value: '11112222' },
+    target: { value: '99999999' },
   });
 
   fireEvent.change(screen.getByLabelText('비밀번호:'), {

@@ -5,6 +5,7 @@ const defaultTheme = {
     panel: 'linear-gradient(300deg, #a1c4fd 0%, #c2e9fb 100%)',
     primary: '#00F',
     primaryText: '#FFF',
+    button: '#ABD9FF',
   },
 };
 

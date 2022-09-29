@@ -1,9 +1,11 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import styled from 'styled-components';
-import { bankStore } from '../stores/BankStore';
+
+import useBankStore from '../hooks/useBankStore';
 
 const Container = styled.div`
   margin: auto;
@@ -62,6 +64,8 @@ const Button = styled.button`
 `;
 
 export default function RegisterForm() {
+  const bankStore = useBankStore();
+
   const navagate = useNavigate();
 
   const {
@@ -69,12 +73,19 @@ export default function RegisterForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    bankStore.registrationState = '';
+
     const {
       name, accountNumber, password, confirmPassword,
     } = data;
-    bankStore.register({
+    await bankStore.register({
       name, accountNumber, password, confirmPassword,
     });
+
+    if (bankStore.isExistingAccountnumber) {
+      return;
+    }
+
     navagate('/');
   };
 
@@ -115,7 +126,11 @@ export default function RegisterForm() {
               maxLength: 8,
             })}
           />
-          {errors.accountNumber ? (
+          {bankStore.isExistingAccountnumber ? (
+            <Error>
+              {bankStore.errorMessage}
+            </Error>
+          ) : errors.accountNumber ? (
             <Error>로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)</Error>
           ) : (
             <P>로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)</P>
@@ -162,6 +177,5 @@ export default function RegisterForm() {
         </Button>
       </Form>
     </Container>
-
   );
 }

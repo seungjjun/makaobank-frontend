@@ -5,8 +5,10 @@ import useBankStore from '../hooks/useBankStore';
 import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  transform: translate(0%, 100%);
   margin: auto;
-  margin-top: 4em;
   height: 100%;
   width: 50%;  
 `;

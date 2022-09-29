@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 const PrimaryButton = styled.button`
-  background: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.primaryText};
+  align-items: center;
+  padding: 1em 2.5em;
+  border: none;
+  background-color: ${[(props) => props.theme.colors.button]};
+  color: ${[(props) => props.theme.colors.primaryText]};
   cursor: pointer;
 `;
 

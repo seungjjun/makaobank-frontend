@@ -54,7 +54,8 @@ const Registration = styled.button`
   margin: auto;
   margin-top: 3em;
   border: none;
-  color: #363636;
+  background: transparent;
+  color: ${[(props) => props.theme.colors.text]};
 `;
 
 const Error = styled.div`
@@ -89,7 +90,6 @@ export default function LoginForm() {
       <Title>USER LOGIN</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          {/* <label htmlFor="input-account-number" /> */}
           <Input
             id="input-account-number"
             placeholder="아이디(계좌번호)"
@@ -100,9 +100,6 @@ export default function LoginForm() {
           ) : null}
         </div>
         <div>
-          {/* <label htmlFor="input-password">
-            패스워드
-          </label> */}
           <Input
             id="input-password"
             placeholder="비밀번호"
