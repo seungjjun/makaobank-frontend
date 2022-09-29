@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
+import { useLocalStorage } from 'usehooks-ts';
 
 import main from '../assets/main.png';
 
@@ -56,14 +57,16 @@ const ButtonToTransaction = styled.button`
 `;
 
 export default function HomePage() {
+  const [accessToken] = useLocalStorage('accessToken', '');
+
   const navigate = useNavigate();
 
   const handleClickToTransfer = () => {
-    navigate('/transfer');
+    if (accessToken ? navigate('/transfer') : navigate('/login'));
   };
 
   const handleClickToTransaction = () => {
-    navigate('/transactions');
+    if (accessToken ? navigate('/transactions') : navigate('/login'));
   };
   return (
     <Home>

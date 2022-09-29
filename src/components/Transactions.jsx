@@ -40,7 +40,7 @@ const Th = styled.th`
   border-right: 1px solid #D8D8D8;
 `;
 
-const P = styled.p`
+const P = styled.th`
   display: flex;
   justify-content: center;
   padding: 2em;

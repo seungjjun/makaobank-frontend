@@ -9,6 +9,7 @@ import PrimaryButton from './ui/PrimaryButton';
 
 import sun from '../assets/sun.png';
 import moon from '../assets/moon.png';
+import useBankStore from '../hooks/useBankStore';
 
 const Container = styled.header`
   max-width: 1920px;
@@ -60,6 +61,8 @@ const LoginButtonBox = styled.div`
 `;
 
 export default function Header() {
+  const bankStore = useBankStore();
+
   const [themeName, setThemeName] = useLocalStorage('theme', 'default ');
 
   const navigate = useNavigate();
@@ -69,6 +72,12 @@ export default function Header() {
   const handleLogout = () => {
     setAccessToken('');
     navigate('/');
+  };
+
+  const handleClickResetState = () => {
+    bankStore.transferState = '';
+    bankStore.loginState = '';
+    bankStore.registrationState = '';
   };
 
   const toggleTheme = () => {
@@ -88,7 +97,12 @@ export default function Header() {
                 <Link to="/account">잔액 확인</Link>
               </li>
               <li>
-                <Link to="/transfer">송금</Link>
+                <Link
+                  to="/transfer"
+                  onClick={handleClickResetState}
+                >
+                  송금
+                </Link>
               </li>
               <li>
                 <Link to="/transactions">거래 내역 확인</Link>
@@ -124,12 +138,12 @@ export default function Header() {
             </Button>
             <>
               <Link to="/register">
-                <PrimaryButton>
+                <PrimaryButton onClick={handleClickResetState}>
                   회원가입
                 </PrimaryButton>
               </Link>
               <Link to="/login">
-                <PrimaryButton>
+                <PrimaryButton onClick={handleClickResetState}>
                   로그인
                 </PrimaryButton>
               </Link>

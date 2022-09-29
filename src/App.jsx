@@ -33,7 +33,7 @@ const Main = styled.main`
 `;
 
 export default function App() {
-  const [themeName, setThemeName] = useLocalStorage('theme', 'default ');
+  const [themeName] = useLocalStorage('theme', 'default ');
 
   const [accessToken] = useLocalStorage('accessToken', '');
 
