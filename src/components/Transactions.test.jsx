@@ -1,0 +1,13 @@
+import { render, screen } from '@testing-library/react';
+
+import { bankStore } from '../stores/BankStore';
+
+import Transactions from './Transactions';
+
+test('Transactions', async () => {
+  bankStore.fetchTransactions();
+
+  render(<Transactions />);
+
+  screen.getByText('거래 내역이 없습니다');
+});
